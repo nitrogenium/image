@@ -16,8 +16,9 @@ class ResetCommand extends AbstractCommand
     public function execute($image)
     {
         $backupName = $this->argument(0)->value();
+        $backup = $image->getBackup($backupName);
 
-        if (is_resource($backup = $image->getBackup($backupName))) {
+        if (is_resource($backup) || $backup instanceof \GDImage) {
 
             // destroy current resource
             imagedestroy($image->getCore());
